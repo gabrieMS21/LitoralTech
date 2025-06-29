@@ -105,11 +105,44 @@ nav ul li a {
     font-weight: 700; 
     transition: color 0.3s; 
 }
-nav ul li a:hover { color: var(--brand-blue); 
-    text-decoration-color: var(--brand-blue);
-    text-decoration: underline ;
-} 
 
+nav ul li a { 
+    text-decoration: none; /* Garante que não haja sublinhado padrão */
+    color: var(--text-on-light-secondary); 
+    font-weight: 700; 
+    padding-bottom: 5px; /* Cria um pequeno espaço para a linha abaixo */
+    position: relative; /* Essencial para posicionar o pseudo-elemento */
+    transition: color 0.4s ease; /* Transição suave para a cor do texto */
+}
+
+/* O pseudo-elemento que será a nossa linha animada */
+nav ul li a::after {
+    content: ''; /* Pseudo-elementos precisam de 'content' */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    /* A linha começa com largura 0 (invisível) */
+    width: 0; 
+    
+    /* Define a altura (espessura) e a cor da linha */
+    height: 3px; 
+    background-color: var(--brand-blue); 
+
+    /* A mágica da animação: define a transição para a propriedade 'width' */
+    /* A animação durará 0.4 segundos com um efeito 'ease' */
+    transition: width 0.4s ease; 
+}
+
+/* Quando o mouse passa sobre o link... */
+nav ul li a:hover { 
+    color: var(--brand-blue); /* A cor do texto muda imediatamente (ou com transição) */
+}
+
+/* ...e a largura do nosso pseudo-elemento ::after anima para 100% */
+nav ul li a:hover::after {
+    width: 100%; /* A linha cresce da esquerda para a direita */
+}
 /* --- BOTÕES --- */
 .btn {
     padding: 14px 32px;
@@ -129,6 +162,12 @@ nav ul li a:hover { color: var(--brand-blue);
     color: var(--text-on-light); 
     width: 100%; /* <--- ESTE É O PROBLEMA */
 }
+.btn-yellow-primary { 
+    background: var(--brand-yellow); 
+    color: var(--light-bg-primary); 
+}
+.btn-yellow-primary:hover { background: #FFD44C; transform: translateY(-3px); }
+
 .btn-yellow:hover { background: #FFD44C; transform: translateY(-3px); }
 
 
@@ -179,7 +218,13 @@ nav ul li a:hover { color: var(--brand-blue);
 .section-title p { font-size: 1.1rem; color: var(--text-on-light-secondary); max-width: 600px; margin: 0 auto; } 
 .dark-section .section-title p { color: rgba(255,255,255,0.7); }
 
-/* --- SEÇÃO DE SERVIÇOS (ANTIGA) --- */
+/* --- SEÇÃO DE SERVIÇOS  --- */
+
+#servicos {
+    background-image: url(imagens/fundo-branco.png); 
+    padding: 100px 0;
+}
+
 .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
 .service-card { 
     background: var(--light-bg-secondary); 
@@ -218,9 +263,9 @@ nav ul li a:hover { color: var(--brand-blue);
     height: 80%; 
 }
 .service-slide-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-light);
-    border-color: var(--brand-blue);
+    scale: 1.05;
+    box-shadow: var(--brand-yellow);
+    border-color: var(--brand-yellow);
 }
 .service-slide-card img {
     width: 100%;
@@ -234,7 +279,7 @@ nav ul li a:hover { color: var(--brand-blue);
 }
 .service-slide-card h3 {
     font-size: 1.2rem;
-    color: var(--brand-blue);
+    color: var(--dark-prime-darker);
     margin: 0;
     text-transform: uppercase;
 }
@@ -245,7 +290,7 @@ nav ul li a:hover { color: var(--brand-blue);
 }
 .services-carousel .swiper-button-next,
 .services-carousel .swiper-button-prev {
-    color: var(--brand-blue);
+    color: var(--dark-prime-darker);
     background-color: rgba(255, 255, 255, 0.8);
     width: 44px;
     height: 44px;
@@ -267,6 +312,7 @@ nav ul li a:hover { color: var(--brand-blue);
     background-color: var(--text-on-light-secondary);
     opacity: 0.7;
     display: none;
+
 }
 .services-carousel .swiper-pagination-bullet-active {
     background-color: var(--brand-yellow);
@@ -398,6 +444,9 @@ nav ul li a:hover { color: var(--brand-blue);
 }
 
 /* --- SEÇÃO DEPOIMENTOS --- */
+
+
+
 .light-bg-section {
     background: var(--light-bg-primary); 
 }
@@ -492,7 +541,9 @@ nav ul li a:hover { color: var(--brand-blue);
     font-weight: 600;
 }
 /* --- ESTILO PARA A INFORMAÇÃO DE LOCALIZAÇÃO (CONTATO) --- */
-
+#contato{
+    background-image: url(imagens/fundo-amarelo.png); 
+}
 .contact-location-info {
     margin-top: 40px; /* Espaçamento acima da div */
     display: flex;
