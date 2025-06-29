@@ -105,45 +105,10 @@ nav ul li a {
     font-weight: 700; 
     transition: color 0.3s; 
 }
-/* --- NAVEGAÇÃO COM ANIMAÇÃO DE SUBLINHADO --- */
-
-nav ul li a { 
-    text-decoration: none; /* Garante que não haja sublinhado padrão */
-    color: var(--text-on-light-secondary); 
-    font-weight: 700; 
-    padding-bottom: 5px; /* Cria um pequeno espaço para a linha abaixo */
-    position: relative; /* Essencial para posicionar o pseudo-elemento */
-    transition: color 0.4s ease; /* Transição suave para a cor do texto */
-}
-
-/* O pseudo-elemento que será a nossa linha animada */
-nav ul li a::after {
-    content: ''; /* Pseudo-elementos precisam de 'content' */
-    position: absolute;
-    bottom: 0;
-    left: 0;
-
-    /* A linha começa com largura 0 (invisível) */
-    width: 0; 
-    
-    /* Define a altura (espessura) e a cor da linha */
-    height: 3px; 
-    background-color: var(--brand-blue); 
-
-    /* A mágica da animação: define a transição para a propriedade 'width' */
-    /* A animação durará 0.4 segundos com um efeito 'ease' */
-    transition: width 0.4s ease; 
-}
-
-/* Quando o mouse passa sobre o link... */
-nav ul li a:hover { 
-    color: var(--brand-blue); /* A cor do texto muda imediatamente (ou com transição) */
-}
-
-/* ...e a largura do nosso pseudo-elemento ::after anima para 100% */
-nav ul li a:hover::after {
-    width: 100%; /* A linha cresce da esquerda para a direita */
-}
+nav ul li a:hover { color: var(--brand-blue); 
+    text-decoration-color: var(--brand-blue);
+    text-decoration: underline ;
+} 
 
 /* --- BOTÕES --- */
 .btn {
@@ -169,7 +134,9 @@ nav ul li a:hover::after {
 
 /* --- SEÇÃO HERO --- */
 .hero-section {
-    background: var(--dark-prime); 
+    background-image: url(imagens/fundo.png); 
+    background-size: 110%;
+    background-position: center;
     padding: 80px 0;
     position: relative;
     overflow: hidden;
@@ -179,12 +146,13 @@ nav ul li a:hover::after {
 .hero-text .tag { background: rgba(0, 82, 204, 0.1); color: var(--brand-blue); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; display: inline-block; margin-bottom: 15px; }
 .hero-text h1 { font-size: 3.5rem; color: var(--border-light); line-height: 1.1; margin-bottom: 20px; } 
 .hero-text p { font-size: 1.1rem; color: var(--text-on-light-secondary); max-width: 450px; margin-bottom: 30px; } 
-.hero-image { flex: 1; position: relative; text-align: center; translate: -30% 5%; }
-.hero-image img { max-width: 200%; max-height: 900px; filter: drop-shadow(var(--shadow-light)); } 
+.hero-image { flex: 1; position: relative; text-align: center; border-radius: 69% 31% 73% 27% / 39% 65% 35% 61% ; background-color: var(--brand-yellow);}
+
+.hero-image img {translate: -20% 5%; max-width: 200%; max-height: 900px; filter: drop-shadow(var(--shadow-light)); } 
 
 .original-badge {
     position: absolute;
-    top: 0px; left: 360px;
+    top: 20px; left: 170px;
     background: var(--brand-green); 
     color: var(--text-on-dark);
     clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 50% 100%, 0% 75%);
