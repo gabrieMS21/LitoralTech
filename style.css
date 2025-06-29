@@ -1,0 +1,596 @@
+/* --- GERAL & VARIÁVEIS (TEMA CLARO) --- */
+:root {
+    /* Cores da Marca VigiaTech */
+    --brand-blue: #0052CC;      /* Azul primário para botões, ícones, hover */
+    --brand-yellow: #FFC107;    /* Amarelo vibrante para títulos, destaques, acentos */
+    --brand-green: #28A745;     /* Verde para sucesso, selos (uso muito pontual) */
+
+    /* Tons de Fundo Claro / Neutros */
+    --light-bg-primary: #FFFFFF;     /* Branco principal para fundos (body, seções claras) */
+    --ligth-bg-yellow: hwb(45 27% 2%);    /* Amarelo vibrante para títulos, destaques, acentos */
+
+    --light-bg-secondary: #F8F9FA;   /* Cinza claro para variações de fundo */
+    --light-bg-transparent: rgba(255, 255, 255, 0.9); /* Header transparente (mais opaco agora) */
+
+
+    /* Tons de Escuro / Neutros Escuros */
+    --dark-prime: #1C2A39;      /* Azul escuro principal para elementos, texto em fundos claros */
+    --dark-prime-lighter: #2A3645; /* Tom um pouco mais claro do azul para variações */
+    --dark-prime-darker: #011D36; /* Tom mais escuro do azul principal */
+
+    /* Cores de Texto */
+    --text-on-light: #2A3645;        /* Texto principal para fundos claros (azul escuro) */
+    --text-on-light-secondary: #6A737D; /* Texto secundário/parágrafos em fundos claros */
+    --text-on-dark: #FFFFFF;         /* Texto principal para fundos escuros (branco puro) */
+    --text-on-dark-secondary: #E0E0E0; /* Texto secundário/parágrafos em fundos escuros */
+
+    /* Bordas e Sombras */
+    --border-light: #E4E7EB;         /* Borda para elementos claros */
+    --border-dark-subtle: rgba(0, 0, 0, 0.05); /* Borda sutil para elementos claros */
+    --shadow-light: 0 10px 30px rgba(0, 82, 204, 0.1); /* Sombra para elementos claros */
+    --shadow-dark: 0 15px 30px rgba(0,0,0,0.2);      /* Sombra para elementos escuros */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Manrope', sans-serif;
+    color: var(--text-on-light); /* Texto padrão do body em tom escuro */
+    background-color: var(--light-bg-primary); /* Fundo padrão do body claro */
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-padding { padding: 100px 0; }
+h1, h2, h3 { font-weight: 800; text-transform: uppercase; }
+
+/* --- CABEÇALHO --- */
+header {
+    background: var(--light-bg-transparent); /* Header transparente inicialmente */
+    padding: 20px 0;
+    position: sticky; top: 0; z-index: 1000;
+    border-bottom: 1px solid var(--border-dark-subtle); /* Borda sutil para fundos claros */
+    transition: background 0.3s ease, border-bottom 0.3s ease; /* Transição para o JS */
+}
+header.scrolled {
+    background: var(--light-bg-primary); /* Fundo sólido ao rolar */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Sombra ao rolar */
+    border-bottom: none; /* Remove a borda sutil quando sólido, se preferir */
+}
+header .container { display: flex; justify-content: space-between; align-items: center; }
+.logo { 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    font-size: 1.4rem; 
+    font-weight: 800; 
+    color: var(--text-on-light); /* Logo em tom escuro */
+    text-decoration: none; 
+}
+nav ul { display: flex; list-style: none; gap: 30px; }
+nav ul li a { 
+    text-decoration: none; 
+    color: var(--text-on-light-secondary); /* Links em tom secundário claro */
+    font-weight: 700; 
+    transition: color 0.3s; 
+}
+nav ul li a:hover { color: var(--brand-blue); } /* Hover em azul vibrante */
+
+/* --- BOTÕES --- */
+.btn {
+    padding: 14px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-block;
+    border: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+.btn-primary { background: var(--brand-blue); color: var(--text-on-dark); }
+.btn-primary:hover { background: #0041A3; transform: translateY(-3px); }
+.btn-yellow { background: var(--brand-yellow); color: var(--text-on-light); width: 100%; }
+.btn-yellow:hover { background: #FFD44C; transform: translateY(-3px); }
+
+
+/* --- SEÇÃO HERO --- */
+.hero-section {
+    background: var(--dark-prime); /* Fundo da seção hero principal claro */
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+.hero-section .container { display: flex; align-items: center; gap:100px; position: relative; z-index: 2; height: 55vh;}
+.hero-text { flex: 1; }
+.hero-text .tag { background: rgba(0, 82, 204, 0.1); color: var(--brand-blue); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; display: inline-block; margin-bottom: 15px; }
+.hero-text h1 { font-size: 3.5rem; color: var(--border-light); line-height: 1.1; margin-bottom: 20px; } /* Título em azul escuro */
+.hero-text p { font-size: 1.1rem; color: var(--text-on-light-secondary); max-width: 450px; margin-bottom: 30px; } /* Parágrafo em tom secundário claro */
+.hero-image { flex: 1; position: relative; text-align: center; translate: -30% 5%; }
+.hero-image img { max-width: 200%; max-height: 900px; filter: drop-shadow(var(--shadow-light)); } /* Imagem com sombra clara */
+
+.original-badge {
+    position: absolute;
+    top: 0px; left: 360px;
+    background: var(--brand-green); /* Selo em verde vibrante */
+    color: var(--text-on-dark);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 50% 100%, 0% 75%);
+    width: 150px; height: 120px;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+}
+.original-badge span { font-size: 0.9rem; font-weight: 700; }
+.original-badge strong { font-size: 2.5rem; line-height: 1; font-weight: 800; }
+
+.hero-shape {
+    position: absolute;
+    bottom: 10%; right: 0;
+    width: 85%; height: 950%;
+    background: var(--brand-yellow); /* Forma em amarelo vibrante */
+    border-top-left-radius: 50% 40%;
+    border-bottom-left-radius: 90% 60%;
+    z-index: 1;
+}
+
+/* --- TÍTULOS DE SEÇÃO --- */
+.section-title { text-align: center; margin-bottom: 60px; }
+.section-title h2 { font-size: 2.5rem; color: var(--text-on-light); margin-bottom: 15px; } /* Títulos em tom escuro */
+.section-title h2.light-text { color: var(--text-on-dark); } /* Para uso pontual em seções escuras */
+.section-title p { font-size: 1.1rem; color: var(--text-on-light-secondary); max-width: 600px; margin: 0 auto; } /* Parágrafos em tom secundário claro */
+.dark-section .section-title p { color: rgba(255,255,255,0.7); }
+
+/* --- SEÇÃO DE SERVIÇOS --- */
+.services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+.service-card { 
+    background: var(--light-bg-secondary); /* Cards em cinza claro */
+    padding: 30px; 
+    border-radius: 12px; 
+    text-align: center; 
+    border: 1px solid var(--border-light); 
+    transition: all 0.3s ease; 
+}
+.service-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-light); border-color: var(--brand-blue); }
+.service-icon { font-size: 2.5rem; margin-bottom: 15px; }
+.service-card h3 { font-size: 1.2rem; color: var(--brand-blue); margin-bottom: 10px; } /* Títulos em azul vibrante */
+.service-card p { color: var(--text-on-light-secondary); font-size: 0.95rem; }
+
+.service-icon img{
+    width: 150px; /* Ajuste conforme necessário */
+    height: auto;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+}
+
+/* --- SEÇÃO DIFERENCIAIS --- */
+.dark-section { background: var(--dark-prime); } /* Fundo da seção diferencial escuro */
+.features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+.feature-item { text-align: center; }
+.feature-item img { max-width: 80%; height: 250px; object-fit: contain; margin-bottom: 20px; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2)); }
+.feature-item h3 { font-size: 1.8rem; color: var(--brand-yellow); margin-bottom: 15px; } /* Títulos em amarelo vibrante */
+.feature-item p { color: var(--text-on-dark-secondary); max-width: 400px; margin: 0 auto; } /* Parágrafos em tom claro */
+
+/* --- SEÇÃO DE CONTATO --- */
+.contact-section { background: var(--light-bg-secondary); padding: 100px 0; } /* Fundo da seção de contato clara */
+.contact-section .container { display: flex; align-items: center; gap: 60px; }
+.contact-content { flex: 1; }
+.contact-content .section-title { text-align: left; margin-bottom: 30px; }
+.contact-content .section-title h2 { color: var(--text-on-light); } /* Título escuro para fundo claro */
+.contact-info { margin-top: 30px; }
+.contact-info p { font-weight: 700; color: var(--text-on-light-secondary); }
+.social-icons { display: flex; gap: 15px; margin-top: 10px; font-family: 'Manrope', sans-serif; font-size: 1.2rem; }
+.social-icons a { color: var(--brand-blue); text-decoration: none; font-weight: bold; }
+.contact-form-wrapper { 
+    flex: 1; 
+    background: var(--light-bg-primary); /* Fundo do formulário branco */
+    padding: 40px; 
+    border-radius: 12px; 
+    box-shadow: var(--shadow-light); 
+}
+.contact-form-wrapper form { display: flex; flex-direction: column; gap: 20px; }
+.contact-form-wrapper input, .contact-form-wrapper textarea { 
+    width: 100%; 
+    padding: 14px; 
+    border-radius: 8px; 
+    border: 1px solid var(--border-light); 
+    font-family: 'Manrope', sans-serif; 
+    font-size: 1rem; 
+    color: var(--text-on-light); /* Texto digitado escuro */
+    background-color: var(--light-bg-primary); /* Fundo dos inputs branco */
+}
+.contact-form-wrapper input:focus, .contact-form-wrapper textarea:focus { border-color: var(--brand-blue); outline: none; }
+
+/* --- RODAPÉ --- */
+.footer { 
+    background: var(--dark-prime); /* Fundo do rodapé escuro */
+    color: var(--text-on-dark-secondary); /* Texto em tom claro */
+    text-align: center; 
+    padding: 20px 0; 
+}
+
+/* --- ANIMAÇÕES --- */
+.animated-item { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+.animated-item.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ESTILOS PARA GALLERY PARENT */
+.gallery-parent {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 15px;
+    height: 800px; /* Ajuste conforme necessário */
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    transition: all 0.4s ease;
+    box-shadow: var(--shadow-light);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+.project-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: white;
+    padding: 20px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .project-overlay {
+    transform: translateY(0);
+}
+
+/* POSICIONAMENTO DOS ITENS */
+
+.parent {
+     display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 8px;
+}
+    
+.item1 {
+    grid-column: span 2 / span 2;
+    grid-row: span 3 / span 3;
+}
+
+.item2 {
+    grid-row: span 3 / span 3;
+    grid-column-start: 3;
+}
+
+.item3 {
+   grid-column: span 2 / span 2;
+    grid-row: span 3 / span 3;
+    grid-column-start: 4;
+    grid-row-start: 3;
+}
+
+.item4 {
+   grid-column: span 2 / span 2;
+    grid-row: span 2 / span 2;
+    grid-column-start: 4;
+    grid-row-start: 1;
+}
+
+.item5 {
+    grid-column: span 3 / span 3;
+    grid-row: span 2 / span 2;
+    grid-row-start: 4;
+}
+
+.item8 {
+    grid-row: span 2 / span 2;
+    grid-column-start: 3;
+    grid-row-start: 1;
+}
+/* RESPONSIVIDADE - MOBILE (até 767px) */
+@media (max-width: 767px) {
+    .gallery-parent {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        height: auto;
+        gap: 10px;
+    }
+    
+    .gallery-item {
+        aspect-ratio: 16/9;
+    }
+    
+    .item1, .item2, .item3, .item4, .item5, .item8 {
+        grid-column: auto;
+        grid-row: auto;
+    }
+    
+    .project-overlay {
+        transform: translateY(0);
+        padding: 10px;
+    }
+}
+
+/* AJUSTES GERAIS PARA TODOS OS TAMANHOS */
+@media (hover: none) {
+    .project-overlay {
+        transform: translateY(0);
+        padding: 10px;
+    }
+    
+    .gallery-item img {
+        transform: none !important;
+    }
+}
+
+        
+
+/* ADICIONE MAIS CLASSES PARA ITENS ADICIONAIS CONFORME O LAYOUT DESEJADO */
+/* --- SEÇÃO "POR QUE ESCOLHER" (ADICIONADA) --- */
+#diferenciais{
+    background: var(--ligth-bg-yellow); /* Fundo claro para seção de diferenciais */
+    padding: 100px 0;
+}
+
+.why-us-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+.why-us-card {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--light-bg-secondary); /* Fundo claro para cards diferenciais */
+    color: var(--text-on-light-secondary);
+    border-radius: 12px;
+    box-shadow: var(--shadow-light);
+}
+.why-us-icon {
+    font-size: 3rem;
+    color: var(--brand-blue); /* Ícone em azul vibrante */
+    margin-bottom: 20px;
+}
+.why-us-card h3 {
+    font-size: 1.2rem;
+    color: var(--text-on-light); /* Títulos em tom escuro */
+    margin-bottom: 10px;
+}
+.why-us-card p {
+    color: var(--text-on-light-secondary); /* Parágrafos em tom secundário claro */
+    font-size: 0.95rem;
+}
+
+/* --- SEÇÃO DEPOIMENTOS (ADICIONADA) --- */
+.light-bg-section {
+    background: var(--light-bg-primary); /* Fundo principal claro para depoimentos */
+}
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+.testimonial-card {
+    background: var(--light-bg-secondary); /* Cards de depoimento em cinza claro */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid var(--border-light);
+}
+.testimonial-card .stars {
+    color: var(--brand-yellow); /* Estrelas em amarelo vibrante */
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+.testimonial-card .quote {
+    font-style: italic;
+    color: var(--text-on-light); /* Citação em texto escuro */
+    margin-bottom: 20px;
+}
+.author {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+.author img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.author h4 {
+    font-size: 1rem;
+    margin: 0;
+    text-transform: none;
+    font-weight: 700;
+    color: var(--text-on-light);
+}
+.author span {
+    font-size: 0.9rem;
+    color: var(--text-on-light-secondary);
+}
+
+/* --- SEÇÃO PERGUNTAS FREQUENTES (FAQ) --- */
+.faq-section {
+    background: var(--light-bg-primary); /* Fundo claro para contrastar com seções escuras */
+}
+
+/* Garante que o título se adapte ao tema (texto escuro para fundo claro) */
+.faq-section .section-title h2 { 
+    color: var(--text-on-light); 
+}
+.faq-section .section-title p {
+    color: var(--text-on-light-secondary);
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas maiores */
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.faq-item {
+    background: var(--light-bg-secondary); /* Fundo levemente diferente para cada item */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Sombra sutil */
+    border: 1px solid var(--border-light);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.faq-item:hover {
+    transform: translateY(-5px); /* Efeito sutil ao passar o mouse */
+    box-shadow: var(--shadow-light);
+}
+
+.faq-item h3 {
+    font-size: 1.3rem;
+    color: var(--brand-blue); /* Título da pergunta em azul vibrante */
+    margin-bottom: 15px;
+    text-transform: none; /* Perguntas não precisam ser uppercase */
+}
+
+.faq-item p {
+    font-size: 1rem;
+    color: var(--text-on-light-secondary); /* Resposta em tom secundário claro */
+    line-height: 1.7;
+}
+
+.faq-contact {
+    text-align: center;
+    margin-top: 70px;
+}
+
+.faq-contact p {
+    font-size: 1.2rem;
+    color: var(--text-on-light); /* Texto da chamada para ação */
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+/* Responsividade para a seção FAQ */
+@media (max-width: 992px) {
+    .faq-grid {
+        grid-template-columns: 1fr; /* 1 coluna em tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .faq-item {
+        padding: 25px;
+    }
+    .faq-item h3 {
+        font-size: 1.1rem;
+    }
+    .faq-item p {
+        font-size: 0.95rem;
+    }
+}
+
+/* --- AJUSTES EM SEÇÕES EXISTENTES --- */
+/* Certifique-se de que hero-image img já está ajustado acima */
+.contact-section { background: var(--light-bg-secondary); } /* Mantém a seção de contato clara */
+
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 992px) {
+    .hero-section .container { flex-direction: column; text-align: center; }
+    .hero-text h1 { font-size: 3rem; }
+    .hero-text p { margin-left: auto; margin-right: auto; }
+    .hero-shape { width: 100%; height: 50%; border-top-left-radius: 0; border-top-right-radius: 50% 40%; }
+    
+    .services-grid, .why-us-grid, .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-section .container { flex-direction: column; }
+    .contact-content .section-title { text-align: center; }
+}
+
+@media (max-width: 768px) {
+    nav { display: none; } /* Idealmente, substituir por um menu hamburguer */
+    .hero-text h1 { font-size: 2.5rem; }
+    
+    .services-grid, .why-us-grid, .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- BOTÃO FLUTUANTE WHATSAPP --- */
+.whatsapp-float {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    background-color: var(--brand-green); /* Usando a cor da marca */
+    color: var(--text-on-dark);
+    border-radius: 50px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    text-decoration: none;
+    font-family: 'Manrope', sans-serif; /* Consistência de fonte */
+    font-weight: bold;
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    background-color: #128C7E; /* Verde mais escuro no hover (mantido valor direto) */
+}
+
+.whatsapp-float img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.whatsapp-text {
+    font-size: 18px;
+    white-space: nowrap;
+}
+
+/* ANIMAÇÃO DE PULSAR */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* RESPONSIVIDADE - Esconde o texto em telas muito pequenas */
+@media (max-width: 500px) {
+    .whatsapp-text {
+        display: none;
+    }
+    .whatsapp-float {
+        padding: 10px;
+        border-radius: 50%;
+    }
+}
