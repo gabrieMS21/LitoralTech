@@ -143,6 +143,93 @@ nav ul li a:hover {
 nav ul li a:hover::after {
     width: 100%; /* A linha cresce da esquerda para a direita */
 }
+
+
+/* --- ESTILOS PARA MENU HAMBÚRGUER E MOBILE --- */
+
+/* Oculta o botão hambúrguer em telas grandes */
+.hamburger-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001; /* Fica acima de outros elementos */
+    position: relative;
+    width: 45px;
+    height: 45px;
+}
+
+.hamburger-btn .line {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--dark-prime);
+    margin: 5px auto;
+    transition: all 0.3s ease-in-out;
+    position: absolute;
+    left: 10px;
+}
+.line-1 { top: 10px; }
+.line-2 { top: 18px; }
+.line-3 { top: 26px; }
+
+/* Animação do botão para "X" quando o menu está ativo */
+.hamburger-btn.is-active .line-1 {
+    transform: translateY(8px) rotate(45deg);
+}
+.hamburger-btn.is-active .line-2 {
+    opacity: 0;
+}
+.hamburger-btn.is-active .line-3 {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* O painel do menu que desliza */
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Começa totalmente fora da tela */
+    width: 100vw; /* Ocupa 50% da largura da tela */
+    height: 100vh; /* Ocupa 100% da altura */
+    background: var(--dark-prime);
+    z-index: 999; /* Fica abaixo do header, mas acima do resto */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.mobile-nav.is-active {
+    right: 0; /* Desliza para dentro da tela */
+}
+
+.mobile-nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    text-align: center;
+}
+
+.mobile-nav ul li {
+    margin: 25px 0;
+}
+
+.mobile-nav ul li a {
+    text-decoration: none;
+    color: var(--text-on-dark);
+    font-size: 1.5rem;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+.mobile-nav ul li a:hover {
+    color: var(--brand-yellow);
+}
+
+
 /* --- BOTÕES --- */
 .btn {
     padding: 14px 32px;
@@ -174,7 +261,8 @@ nav ul li a:hover::after {
 /* --- SEÇÃO HERO --- */
 .hero-section {
     background-image: url(imagens/fundo.png); 
-    background-size: 110%;
+    background-size: cover;
+    background-repeat: no-repeat;
     background-position: center;
     padding: 80px 0;
     position: relative;
@@ -779,11 +867,15 @@ nav ul li a:hover::after {
 
 /* --- RESPONSIVIDADE --- */
 @media (max-width: 992px) {
-    .hero-section .container { flex-direction: column; text-align: center; }
+    .hero-section .container {height: 100%; flex-direction: column-reverse; text-align: center; }
     .hero-text h1 { font-size: 3rem; }
     .hero-text p { margin-left: auto; margin-right: auto; }
-    .hero-shape { width: 100%; height: 50%; border-top-left-radius: 0; border-top-right-radius: 50% 40%; }
-    
+    .hero-image { display: none;}
+    .hero-image img { max-width: 200%; max-height: 400px; translate: -20% 1%; }
+    .original-badge { top: 0px; left: 50%; transform: translateX(-50%); width: 120px; height: 100px; font: 0.1em; }
+    .original-badge span { font-size: 0.8rem; }
+    .original-badge strong { font-size: 1.5rem; }
+
     .services-grid, .why-us-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -844,5 +936,22 @@ nav ul li a:hover::after {
     
     .gallery-item img {
         transform: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Esconde a navegação de desktop e mostra o hambúrguer */
+    .desktop-nav {
+        display: none; 
+    }
+    .hamburger-btn {
+        display: block;
+    }
+}
+
+@media (max-width: 500px) {
+    /* Em telas muito pequenas, o menu ocupa mais espaço */
+    .mobile-nav {
+        width: 75vw;
     }
 }

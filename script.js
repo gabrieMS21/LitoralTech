@@ -1,89 +1,90 @@
+document.addEventListener("DOMContentLoaded", function() {
+    // --- LÓGICA DO MENU HAMBÚRGUER ---
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileNav = document.getElementById('mobile-nav');
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // Efeito do header ao rolar
-            const header = document.querySelector('header');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
+    if (hamburgerBtn && mobileNav) {
+        const navLinks = mobileNav.querySelectorAll('a');
+
+        // Função para abrir e fechar o menu
+        const toggleMenu = () => {
+            hamburgerBtn.classList.toggle('is-active');
+            mobileNav.classList.toggle('is-active');
+            document.body.classList.toggle('no-scroll');
+        };
+
+        // Adiciona o evento de clique ao botão
+        hamburgerBtn.addEventListener('click', toggleMenu);
+
+        // Adiciona evento para fechar o menu ao clicar em um link
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (mobileNav.classList.contains('is-active')) {
+                    toggleMenu();
                 }
             });
-
-            // Animação dos itens ao aparecer na tela
-            const animatedItems = document.querySelectorAll('.animated-item');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            animatedItems.forEach(item => {
-                observer.observe(item);
-            });
         });
-// Espera o documento carregar para executar o script
-document.addEventListener('DOMContentLoaded', function() {
+    }
     
-    // Animações de Scroll (código que você já tinha)
+    // --- HEADER COM SCROLL ---
+    const header = document.querySelector('header');
+    if(header) {
+        const updateHeader = () => {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        };
+        
+        window.addEventListener('scroll', updateHeader);
+        updateHeader(); // Verificar posição inicial
+    }
+
+    // --- ANIMAÇÃO DE SCROLL (FADE-IN + SLIDE-UP) ---
     const animatedItems = document.querySelectorAll('.animated-item');
-    if (animatedItems.length) {
-        const observer = new IntersectionObserver((entries) => {
+    
+    if (animatedItems.length > 0) {
+        const observerCallback = (entries, observer) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
+                if (entry.isIntersecting) {  // Corrigido typo "isIntersecting"
                     entry.target.classList.add('is-visible');
                     observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.1 });
-
+        };
+        
+        const observerOptions = { 
+            root: null, 
+            threshold: 0.1 
+        };
+        
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
         animatedItems.forEach(item => {
             observer.observe(item);
         });
     }
 
-    // Inicialização do Carrossel de Serviços com Swiper.js
+    // --- CARROSSEL DE SERVIÇOS (SWIPER.JS) ---
     const servicesCarousel = document.querySelector('.services-carousel');
-    if (servicesCarousel) {
+    if (servicesCarousel && typeof Swiper !== 'undefined') {
         new Swiper(servicesCarousel, {
-            // Opções do Swiper
-            loop: true, // Cria um loop infinito de slides
+            loop: true,
             autoplay: {
-                delay: 4000, // Tempo em milissegundos para mudar de slide
-                disableOnInteraction: false, // Não para o autoplay ao interagir
+                delay: 4000,
+                disableOnInteraction: false,
             },
             pagination: {
                 el: '.swiper-pagination',
-                clickable: true, // Permite clicar nas bolinhas para navegar
+                clickable: true,
             },
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             },
-            // Responsividade: define quantos slides mostrar em cada tamanho de tela
             slidesPerView: 1,
             spaceBetween: 20,
             breakpoints: {
-                // quando a largura da tela for >= 640px
-                640: {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
-                },
-                // quando a largura da tela for >= 992px
-                992: {
-                    slidesPerView: 3,
-                    spaceBetween: 30,
-                },
-                 // quando a largura da tela for >= 1200px
-                1200: {
-                    slidesPerView: 4,
-                    spaceBetween: 30,
-                }
+                640: { slidesPerView: 2, spaceBetween: 20 },
+                992: { slidesPerView: 3, spaceBetween: 30 },
+                1200: { slidesPerView: 4, spaceBetween: 30 }
             }
         });
     }
-
 });
