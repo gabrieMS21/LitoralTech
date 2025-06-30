@@ -921,11 +921,17 @@ nav ul li a:hover::after {
 }
 
 @media (max-width: 500px) {
-    .whatsapp-text { display: none; }
     .whatsapp-float {
         padding: 10px;
         border-radius: 50%;
     }
+    .whatsapp-text { display: none; }
+    
+.whatsapp-float img {
+    width: 40px;
+    height: 40px;
+    margin-right: 0px;
+}
 }
 
 @media (hover: none) {
