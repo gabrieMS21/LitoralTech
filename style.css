@@ -260,7 +260,7 @@ nav ul li a:hover::after {
 
 /* --- SEÇÃO HERO --- */
 .hero-section {
-    background-image: url(imagens/fundo.png); 
+    background-image: url(imagens/fundo.webp); 
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -309,7 +309,7 @@ nav ul li a:hover::after {
 /* --- SEÇÃO DE SERVIÇOS  --- */
 
 #servicos {
-    background-image: url(imagens/fundo-branco.png); 
+    background-image: url(imagens/fundo-branco.webp); 
     padding: 100px 0;
 }
 
@@ -630,7 +630,7 @@ nav ul li a:hover::after {
 }
 /* --- ESTILO PARA A INFORMAÇÃO DE LOCALIZAÇÃO (CONTATO) --- */
 #contato{
-    background-image: url(imagens/fundo-amarelo.png); 
+    background-image: url(imagens/fundo-amarelo.webp); 
 }
 .contact-location-info {
     margin-top: 40px; /* Espaçamento acima da div */
