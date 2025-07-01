@@ -253,7 +253,7 @@ nav ul li a:hover::after {
   text-align: center;
 }
 .mobile-nav ul li {
-  margin: 25px 0;
+  margin: 20px 0;
 }
 .mobile-nav ul li a {
   text-decoration: none;
@@ -1074,7 +1074,7 @@ nav ul li a:hover::after {
     height: 50px;
   }
   .section-divider.divider-up{
-    translate: 0 22%;
+    translate: 0 20%;
   }
 
   nav,
