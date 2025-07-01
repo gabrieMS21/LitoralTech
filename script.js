@@ -1,6 +1,6 @@
 
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // --- LÓGICA DO MENU HAMBÚRGUER ---
     const hamburgerBtn = document.getElementById('hamburger-btn');
     const mobileNav = document.getElementById('mobile-nav');
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
     }
-    
+
     // --- CARROSSEL DE SERVIÇOS (SWIPER.JS) ---
     const servicesCarousel = document.querySelector('.services-carousel');
     if (servicesCarousel && typeof Swiper !== 'undefined') {
@@ -54,4 +54,27 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
+    
+});
+document.querySelectorAll(".faq-question").forEach((btn) => {
+  btn.addEventListener("click", function () {
+    const faqItem = this.parentElement;
+    const answer = faqItem.querySelector(".faq-answer");
+
+    if (faqItem.classList.contains("active")) {
+      // fechar
+      answer.style.height = answer.scrollHeight + "px";
+      requestAnimationFrame(() => {
+        answer.style.height = "0";
+      });
+      faqItem.classList.remove("active");
+    } else {
+      // abrir
+      answer.style.height = "0"; // força 0
+      faqItem.classList.add("active");
+      requestAnimationFrame(() => {
+        answer.style.height = answer.scrollHeight + "px";
+      });
+    }
+  });
 });

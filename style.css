@@ -85,7 +85,6 @@ h3 {
   height: 80px;
   width: 100%;
   clip-path: polygon(0% 0%, 100% 0%, 100% 40%, 50% 100%, 0% 40%);
-  /* NOTA: Animações em clip-path podem ser pesadas. Use com moderação. */
   transition: background-color 0.3s ease;
 }
 .section-divider.divider-yellow {
@@ -93,6 +92,7 @@ h3 {
 }
 .section-divider.divider-up {
   clip-path: polygon(0% 100%, 100% 100%, 100% 60%, 50% 0%, 0% 60%);
+  translate: 0 14%;
 }
 
 /* --- CABEÇALHO --- */
@@ -393,6 +393,7 @@ nav ul li a:hover::after {
 .hero-shape {
   position: absolute;
   bottom: 10%;
+  bottom: 10%;
   right: 0;
   width: 85%;
   height: 950%;
@@ -405,7 +406,7 @@ nav ul li a:hover::after {
 /* --- TÍTULOS DE SEÇÃO --- */
 .section-title {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 }
 .section-title h2 {
   font-size: 2.5rem;
@@ -584,7 +585,7 @@ nav ul li a:hover::after {
 /* --- SEÇÃO DARK E GALERIA DE INSTALAÇÕES --- */
 .dark-section {
   background-image: url(imagens/fundo.webp);
-   background-size: cover;
+  background-size: cover;
   background-position: center;
 }
 
@@ -746,53 +747,83 @@ nav ul li a:hover::after {
 }
 
 /* --- SEÇÃO FAQ --- */
-.faq-section {
+
+
+#faq{
+    background-image: url(imagens/fundo.webp);
+}
+
+.faq-accordion-section {
   background: var(--light-bg-primary);
+  padding: 80px 0;
 }
-.faq-section .section-title h2 {
-  color: var(--text-on-light);
-}
-.faq-section .section-title p {
-  color: var(--text-on-light-secondary);
-}
-.faq-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
-  margin-top: 50px;
-}
-.faq-item {
-  background: var(--light-bg-secondary);
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--border-light);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.faq-item:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-light);
-}
-.faq-item h3 {
-  font-size: 1.3rem;
-  color: var(--brand-blue);
-  margin-bottom: 15px;
-  text-transform: none;
-}
-.faq-item p {
-  font-size: 1rem;
-  color: var(--text-on-light-secondary);
-  line-height: 1.7;
-}
-.faq-contact {
+
+.faq-accordion-section .section-title {
   text-align: center;
-  margin-top: 70px;
+  margin-bottom: 50px;
 }
-.faq-contact p {
-  font-size: 1.2rem;
-  color: var(--text-on-light);
-  margin-bottom: 25px;
+
+.faq-accordion-section .section-title h2 {
+  font-size: 2rem;
+  color: var(--text-on-dark);
+  margin-bottom: 15px;
+}
+
+.faq-accordion-section .section-title i {
+  color: var(--border-light);
+  margin-left: 10px;
+}
+
+.faq-accordion-section .section-title p {
+  font-size: 1.1rem;
+  color: var(--text-on-dark-secondary);
+}
+
+.faq-accordion {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  margin-bottom: 15px;
+  background: var(--light-bg-secondary);
+}
+
+.faq-question {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 20px;
+  font-size: 1.1rem;
   font-weight: 600;
+  color: var(--brand-blue);
+  cursor: pointer;
+  position: relative;
+}
+
+.faq-question::after {
+  content: "+";
+  position: absolute;
+  right: 20px;
+  font-size: 1.3rem;
+  transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-question::after {
+  transition: ease 0.3;
+  content: "-";
+}
+
+.faq-answer {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.4s ease;
+  padding: 0px 20px;
+  color: var(--text-on-light-secondary);
+  line-height: 1.6;
 }
 
 /* contato */
@@ -801,7 +832,8 @@ nav ul li a:hover::after {
   background-image: url(imagens/fundo-amarelo.webp);
 }
 .contact-location-info {
-  margin-top: 40px; /* Espaçamento acima da div */
+  margin: 40px;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1041,6 +1073,9 @@ nav ul li a:hover::after {
   .section-divider {
     height: 50px;
   }
+  .section-divider.divider-up{
+    translate: 0 22%;
+  }
 
   nav,
   nav.desktop-nav {
@@ -1078,6 +1113,12 @@ nav ul li a:hover::after {
     max-width: 350px;
     margin: 0 auto;
     min-width: unset;
+  }
+  .faq-section .section-title h2 {
+    font-size: 1.5rem;
+  }
+  .faq-card {
+    padding: 20px;
   }
 }
 
