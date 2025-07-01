@@ -56,25 +56,32 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     
 });
-document.querySelectorAll(".faq-question").forEach((btn) => {
-  btn.addEventListener("click", function () {
-    const faqItem = this.parentElement;
-    const answer = faqItem.querySelector(".faq-answer");
 
-    if (faqItem.classList.contains("active")) {
-      // fechar
-      answer.style.height = answer.scrollHeight + "px";
-      requestAnimationFrame(() => {
-        answer.style.height = "0";
+document.addEventListener("DOMContentLoaded", function () {
+  const faqItems = document.querySelectorAll(".faq-item");
+
+  faqItems.forEach((item) => {
+    const questionButton = item.querySelector(".faq-question");
+
+    questionButton.addEventListener("click", () => {
+      const isCurrentlyActive = item.classList.contains("active");
+
+      // Fecha todos os outros itens antes de abrir o novo
+      faqItems.forEach((otherItem) => {
+        if (otherItem !== item) {
+          otherItem.classList.remove("active");
+          otherItem.querySelector(".faq-question").setAttribute("aria-expanded", "false");
+        }
       });
-      faqItem.classList.remove("active");
-    } else {
-      // abrir
-      answer.style.height = "0"; // força 0
-      faqItem.classList.add("active");
-      requestAnimationFrame(() => {
-        answer.style.height = answer.scrollHeight + "px";
-      });
-    }
+
+      // Alterna o estado do item clicado
+      if (!isCurrentlyActive) {
+        item.classList.add("active");
+        questionButton.setAttribute("aria-expanded", "true");
+      } else {
+        item.classList.remove("active");
+        questionButton.setAttribute("aria-expanded", "false");
+      }
+    });
   });
 });

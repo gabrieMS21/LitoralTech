@@ -754,7 +754,6 @@ nav ul li a:hover::after {
 }
 
 .faq-accordion-section {
-  background: var(--light-bg-primary);
   padding: 80px 0;
 }
 
@@ -765,22 +764,22 @@ nav ul li a:hover::after {
 
 .faq-accordion-section .section-title h2 {
   font-size: 2rem;
-  color: var(--text-on-dark);
+  color: var(--border-light); /* Corrigido para contraste em fundo claro */
   margin-bottom: 15px;
 }
 
 .faq-accordion-section .section-title i {
-  color: var(--border-light);
+  color: var(--border-light); /* Corrigido para contraste */
   margin-left: 10px;
 }
 
 .faq-accordion-section .section-title p {
   font-size: 1.1rem;
-  color: var(--text-on-dark-secondary);
+  color: var(--text-on-dark-secondary); /* Corrigido */
 }
 
 .faq-accordion {
-  max-width: 800px;
+  max-width: 800px; /* Um pouco mais compacto */
   margin: 0 auto;
 }
 
@@ -789,12 +788,13 @@ nav ul li a:hover::after {
   border-radius: 8px;
   margin-bottom: 15px;
   background: var(--light-bg-secondary);
+  overflow: hidden; /* Importante para o arredondamento funcionar */
 }
 
 .faq-question {
   width: 100%;
   text-align: left;
-  background: none;
+  background: transparent; /* Alterado de none para transparent */
   border: none;
   padding: 20px;
   font-size: 1.1rem;
@@ -802,28 +802,54 @@ nav ul li a:hover::after {
   color: var(--brand-blue);
   cursor: pointer;
   position: relative;
+  transition: background-color 0.3s ease;
 }
 
+.faq-question:hover {
+  background-color: rgba(0, 82, 204, 0.05); /* Feedback visual no hover */
+}
+
+/* O ícone de + / - */
 .faq-question::after {
   content: "+";
   position: absolute;
   right: 20px;
-  font-size: 1.3rem;
+  top: 50%;
+  transform: translateY(-50%); /* Centralização vertical perfeita */
+  font-size: 1.5rem; /* Um pouco maior */
+  font-weight: 400;
   transition: transform 0.3s ease;
 }
 
+/* Animação do ícone quando o item está ativo */
 .faq-item.active .faq-question::after {
-  transition: ease 0.3;
-  content: "-";
+  content: "–"; /* Usando um caractere de menos correto */
+  transform: translateY(-50%) rotate(180deg);
 }
 
-.faq-answer {
-  height: 0;
-  overflow: hidden;
-  transition: height 0.4s ease;
-  padding: 0px 20px;
+/* OTIMIZAÇÃO DE PERFORMANCE: A MÁGICA ACONTECE AQUI */
+.faq-answer-wrapper {
+  display: grid;
+  /* Começa "fechado" com 0fr (zero frações de altura) */
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s ease-out; /* Animação suave */
+}
+
+/* Quando o item está ativo, a grid expande para 1fr */
+.faq-item.active .faq-answer-wrapper {
+  grid-template-rows: 1fr;
+}
+
+.faq-answer-content {
+  overflow: hidden; /* Essencial para a técnica de grid funcionar */
+}
+
+.faq-answer-content p {
+  padding: 0 20px 20px 20px; /* Padding no conteúdo interno */
+  margin: 0;
+  font-size: 1rem;
   color: var(--text-on-light-secondary);
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 /* contato */
