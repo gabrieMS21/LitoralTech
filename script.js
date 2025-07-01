@@ -1,3 +1,5 @@
+
+
 document.addEventListener("DOMContentLoaded", function() {
     // --- LÓGICA DO MENU HAMBÚRGUER ---
     const hamburgerBtn = document.getElementById('hamburger-btn');
@@ -26,41 +28,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
     
-    // --- HEADER COM SCROLL ---
-    const header = document.querySelector('header');
-    if(header) {
-        const updateHeader = () => {
-            header.classList.toggle('scrolled', window.scrollY > 50);
-        };
-        
-        window.addEventListener('scroll', updateHeader);
-        updateHeader(); // Verificar posição inicial
-    }
-
-    // --- ANIMAÇÃO DE SCROLL (FADE-IN + SLIDE-UP) ---
-    const animatedItems = document.querySelectorAll('.animated-item');
-    
-    if (animatedItems.length > 0) {
-        const observerCallback = (entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {  // Corrigido typo "isIntersecting"
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        };
-        
-        const observerOptions = { 
-            root: null, 
-            threshold: 0.1 
-        };
-        
-        const observer = new IntersectionObserver(observerCallback, observerOptions);
-        animatedItems.forEach(item => {
-            observer.observe(item);
-        });
-    }
-
     // --- CARROSSEL DE SERVIÇOS (SWIPER.JS) ---
     const servicesCarousel = document.querySelector('.services-carousel');
     if (servicesCarousel && typeof Swiper !== 'undefined') {
