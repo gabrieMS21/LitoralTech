@@ -794,7 +794,7 @@ nav ul li a:hover::after {
 .faq-question {
   width: 100%;
   text-align: left;
-  background: transparent; /* Alterado de none para transparent */
+  background: transparent;
   border: none;
   padding: 20px;
   font-size: 1.1rem;
@@ -1140,12 +1140,32 @@ nav ul li a:hover::after {
     margin: 0 auto;
     min-width: unset;
   }
-  .faq-section .section-title h2 {
-    font-size: 1.5rem;
+ .faq-accordion-section {
+    padding: 80px 0; /* Retorna ao preenchimento original */
   }
-  .faq-card {
-    padding: 20px;
+
+  .faq-accordion-section .section-title h2 {
+    font-size: 2rem; /* Aumenta o título de volta */
   }
+
+  .faq-accordion-section .section-title p {
+    font-size: 1.1rem; /* Aumenta o parágrafo de volta */
+  }
+
+  .faq-question {
+    width: 90%;
+    padding: 20px; 
+    font-size: 1.1rem;
+  }
+  
+  .faq-question::after {
+    right: -20px;
+  }
+
+  .faq-answer-content p {
+    font-size: 1rem;
+  }
+
 }
 
 @media (max-width: 500px) {
