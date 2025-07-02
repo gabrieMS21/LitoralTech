@@ -1,48 +1,78 @@
-
-// --- MENU HAMBÚRGUER ---
-const menuHamburger = document.querySelector(".menu-hamburger");
-const menuLinks = document.querySelector(".menu-links");
-
-menuHamburger.addEventListener("click", () => {
-  menuHamburger.classList.toggle("active");
-  menuLinks.classList.toggle("active");
-
-  if (menuLinks.classList.contains("active")) {
-    menuLinks.style.display = "flex";
-    menuLinks.style.flexDirection = "column";
-    menuLinks.style.alignItems = "center";
-    menuLinks.style.justifyContent = "center";
-    menuLinks.style.height = "80vh";
-    menuLinks.style.width = "100vw";
-    menuLinks.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-    menuLinks.style.position = "absolute";
-    menuLinks.style.top = "100%";
-    menuLinks.style.left = "0";
-    menuLinks.style.zIndex = "1000";
-    menuLinks.style.transition = "all 0.5s ease-in-out";
-    menuLinks.style.backdropFilter = "blur(10px)";
-  } else {
-    menuLinks.style.display = "none";
-  }
-});
-
-menuLinks.addEventListener("click", () => {
-  if (menuLinks.classList.contains("active")) {
-    menuHamburger.classList.remove("active");
-    menuLinks.classList.remove("active");
-    menuLinks.style.display = "none";
-  }
-});
-
 document.addEventListener("DOMContentLoaded", function () {
+    
+    // --- LÓGICA DO MENU HAMBURGUER (NOVO) ---
+    const header = document.getElementById('main-header');
+    const navToggle = document.querySelector('.header-nav__toggle');
+    const navMenu = document.querySelector('.header-nav__menu');
 
-    // --- CARROSSEL DE SERVIÇOS (SWIPER.JS) ---
+    if (navToggle) {
+        navToggle.addEventListener('click', () => {
+            const isOpened = header.classList.toggle('nav-is-open');
+            navToggle.setAttribute('aria-expanded', isOpened);
+            
+            // Atualiza a label para acessibilidade
+            if (isOpened) {
+                navToggle.setAttribute('aria-label', 'Fechar menu de navegação');
+                document.body.classList.add('nav-open-no-scroll');
+            } else {
+                navToggle.setAttribute('aria-label', 'Abrir menu de navegação');
+                document.body.classList.remove('nav-open-no-scroll');
+            }
+        });
+    }
+
+    // Fecha o menu ao clicar em um link
+    if (navMenu) {
+        navMenu.addEventListener('click', (e) => {
+            if (e.target.classList.contains('header-nav__link')) {
+                header.classList.remove('nav-is-open');
+                navToggle.setAttribute('aria-expanded', 'false');
+                navToggle.setAttribute('aria-label', 'Abrir menu de navegação');
+                document.body.classList.remove('nav-open-no-scroll');
+            }
+        });
+    }
+
+    // --- LÓGICA DO ACORDEON (FAQ) ---
+    const faqItems = document.querySelectorAll(".faq-item");
+    faqItems.forEach((item) => {
+        const questionButton = item.querySelector(".faq-question");
+        questionButton.addEventListener("click", () => {
+            const isCurrentlyActive = item.classList.contains("active");
+            // Fecha todos os outros itens
+            faqItems.forEach((otherItem) => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove("active");
+                    otherItem.querySelector(".faq-question").setAttribute("aria-expanded", "false");
+                }
+            });
+            // Alterna o item clicado
+            if (!isCurrentlyActive) {
+                item.classList.add("active");
+                questionButton.setAttribute("aria-expanded", "true");
+            } else {
+                item.classList.remove("active");
+                questionButton.setAttribute("aria-expanded", "false");
+            }
+        });
+    });
+
+    // --- INICIALIZAÇÃO DO AOS (ANIMAÇÕES DE SCROLL) ---
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            once: true, // A animação acontece apenas uma vez
+            duration: 800,
+            delay: 100,
+        });
+    }
+
+    // --- INICIALIZAÇÃO DO CARROSSEL DE SERVIÇOS (SWIPER.JS) ---
     const servicesCarousel = document.querySelector('.services-carousel');
     if (servicesCarousel && typeof Swiper !== 'undefined') {
         new Swiper(servicesCarousel, {
             loop: true,
             autoplay: {
-                delay: 4000,
+                delay: 3000,
                 disableOnInteraction: false,
             },
             pagination: {
@@ -62,34 +92,4 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-    
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-  const faqItems = document.querySelectorAll(".faq-item");
-
-  faqItems.forEach((item) => {
-    const questionButton = item.querySelector(".faq-question");
-
-    questionButton.addEventListener("click", () => {
-      const isCurrentlyActive = item.classList.contains("active");
-
-      // Fecha todos os outros itens antes de abrir o novo
-      faqItems.forEach((otherItem) => {
-        if (otherItem !== item) {
-          otherItem.classList.remove("active");
-          otherItem.querySelector(".faq-question").setAttribute("aria-expanded", "false");
-        }
-      });
-
-      // Alterna o estado do item clicado
-      if (!isCurrentlyActive) {
-        item.classList.add("active");
-        questionButton.setAttribute("aria-expanded", "true");
-      } else {
-        item.classList.remove("active");
-        questionButton.setAttribute("aria-expanded", "false");
-      }
-    });
-  });
 });
