@@ -1,32 +1,40 @@
 
+// --- MENU HAMBÚRGUER ---
+const menuHamburger = document.querySelector(".menu-hamburger");
+const menuLinks = document.querySelector(".menu-links");
+
+menuHamburger.addEventListener("click", () => {
+  menuHamburger.classList.toggle("active");
+  menuLinks.classList.toggle("active");
+
+  if (menuLinks.classList.contains("active")) {
+    menuLinks.style.display = "flex";
+    menuLinks.style.flexDirection = "column";
+    menuLinks.style.alignItems = "center";
+    menuLinks.style.justifyContent = "center";
+    menuLinks.style.height = "80vh";
+    menuLinks.style.width = "100vw";
+    menuLinks.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+    menuLinks.style.position = "absolute";
+    menuLinks.style.top = "100%";
+    menuLinks.style.left = "0";
+    menuLinks.style.zIndex = "1000";
+    menuLinks.style.transition = "all 0.5s ease-in-out";
+    menuLinks.style.backdropFilter = "blur(10px)";
+  } else {
+    menuLinks.style.display = "none";
+  }
+});
+
+menuLinks.addEventListener("click", () => {
+  if (menuLinks.classList.contains("active")) {
+    menuHamburger.classList.remove("active");
+    menuLinks.classList.remove("active");
+    menuLinks.style.display = "none";
+  }
+});
 
 document.addEventListener("DOMContentLoaded", function () {
-    // --- LÓGICA DO MENU HAMBÚRGUER ---
-    const hamburgerBtn = document.getElementById('hamburger-btn');
-    const mobileNav = document.getElementById('mobile-nav');
-
-    if (hamburgerBtn && mobileNav) {
-        const navLinks = mobileNav.querySelectorAll('a');
-
-        // Função para abrir e fechar o menu
-        const toggleMenu = () => {
-            hamburgerBtn.classList.toggle('is-active');
-            mobileNav.classList.toggle('is-active');
-            document.body.classList.toggle('no-scroll');
-        };
-
-        // Adiciona o evento de clique ao botão
-        hamburgerBtn.addEventListener('click', toggleMenu);
-
-        // Adiciona evento para fechar o menu ao clicar em um link
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (mobileNav.classList.contains('is-active')) {
-                    toggleMenu();
-                }
-            });
-        });
-    }
 
     // --- CARROSSEL DE SERVIÇOS (SWIPER.JS) ---
     const servicesCarousel = document.querySelector('.services-carousel');
