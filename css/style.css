@@ -27,8 +27,8 @@
   --shadow-light: 0 10px 30px rgba(0, 82, 204, 0.1); /* Sombra para elementos claros */
   --shadow-dark: 0 15px 30px rgba(0, 0, 0, 0.2); /* Sombra para elementos escuros */
   
-  /* --- ALTERAÇÃO: Variável para altura do header --- */
-  --header-height: 80px;
+  /* --- CORREÇÃO: Altura do header ajustada para mobile --- */
+  --header-height: 65px;
 }
 
 /* --- OTIMIZAÇÃO: Reset e Estilos Base --- */
@@ -56,7 +56,6 @@ body.nav-open-no-scroll {
   overflow: hidden;
 }
 
-/* --- ALTERAÇÃO: Adicionado padding para compensar o header fixo --- */
 main {
   padding-top: var(--header-height);
 }
@@ -65,7 +64,7 @@ main {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  padding: 0 10px;
+  padding: 0 20px; /* Padding um pouco maior para respiro nas laterais */
 }
 
 img {
@@ -90,26 +89,23 @@ h1, h2, h3 {
   text-transform: uppercase;
 }
 
+
 /* Cabeçalho Header */
 #main-header {
   background: var(--light-bg-transparent);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  
-  /* --- ALTERAÇÃO: de 'sticky' para 'fixed' --- */
   position: fixed; 
   top: 0;
   left: 0;
-  width: 100%; /* Essencial para position: fixed */
-  
+  width: 100%;
   height: var(--header-height);
   display: flex;
   align-items: center;
-  
   z-index: 1000;
   border-bottom: 1px solid var(--border-dark-subtle);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
-  will-change: background, box-shadow;
+  transition: height 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+  will-change: height, background, box-shadow;
 }
 
 .header-nav {
@@ -122,20 +118,27 @@ h1, h2, h3 {
 .header-nav__logo {
   display: flex;
   align-items: center;
+  gap: 8px; /* --- CORREÇÃO: Adicionado gap para espaçamento */
   font-size: 1.2rem;
   font-weight: 800;
   color: var(--text-on-light);
-  z-index: 1001; /* Garante que o logo fique acima do menu mobile */
+  z-index: 1001;
+  
+  /* --- CORREÇÃO: Impede que o logo quebre o layout --- */
+  white-space: nowrap; 
+  overflow: hidden;
+  flex-shrink: 1; /* Permite que o logo encolha se necessário */
 }
 
 .header-nav__logo img {
-  width: 50px;
-  height: 50px;
+  width: 45px; /* Levemente menor para mobile */
+  height: 45px;
+  flex-shrink: 0; /* Impede que a imagem seja esmagada */
 }
 
 /* --- Botão Hamburguer --- */
 .header-nav__toggle {
-  display: flex; /* Visível por padrão (Mobile First) */
+  display: flex;
   flex-direction: column;
   justify-content: space-around;
   width: 36px;
@@ -144,7 +147,8 @@ h1, h2, h3 {
   border: none;
   cursor: pointer;
   padding: 0;
-  z-index: 1001; /* Garante que o botão fique acima do menu */
+  z-index: 1001;
+  flex-shrink: 0; /* Garante que o botão não encolha */
 }
 
 .header-nav__toggle:focus {
@@ -167,14 +171,12 @@ h1, h2, h3 {
   right: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(28, 42, 57, 0.95); /* --dark-prime com alpha */
+  background-color: rgba(28, 42, 57, 0.95);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  
   display: flex;
   justify-content: center;
   align-items: center;
-  
   transform: translateX(100%);
   opacity: 0;
   visibility: hidden;
@@ -193,7 +195,7 @@ h1, h2, h3 {
   color: var(--text-on-dark);
   font-size: 1.8rem;
   font-weight: 700;
-  padding: 5px 7px;
+  padding: 10px 20px;
   transition: color 0.3s ease;
 }
 
@@ -203,82 +205,23 @@ h1, h2, h3 {
 
 
 /* --- ESTADO ATIVO DO MENU (quando o header tem a classe .nav-is-open) --- */
-
 #main-header.nav-is-open .header-nav__menu {
   transform: translateX(0);
   opacity: 1;
   visibility: visible;
 }
 
-/* Animação do botão para "X" */
 #main-header.nav-is-open .header-nav__toggle-line {
-  background-color: var(--light-bg-primary); /* Muda a cor para contrastar com o fundo escuro */
+  background-color: var(--light-bg-primary);
 }
-
 #main-header.nav-is-open .header-nav__toggle-line:nth-child(1) {
   transform: rotate(45deg) translate(7px, 7px);
 }
-
 #main-header.nav-is-open .header-nav__toggle-line:nth-child(2) {
   opacity: 0;
 }
-
 #main-header.nav-is-open .header-nav__toggle-line:nth-child(3) {
   transform: rotate(-45deg) translate(8px, -8px);
-}
-
-
-/* --- Estilos para Desktop (a partir de 992px) --- */
-@media (min-width: 992px) {
-  .header-nav__toggle {
-    display: none; /* Esconde o botão hamburguer */
-  }
-
-  .header-nav__menu {
-    /* Reseta os estilos mobile */
-    position: static;
-    transform: none;
-    opacity: 1;
-    visibility: visible;
-    width: auto;
-    height: auto;
-    background: none;
-    backdrop-filter: none;
-    padding: 0;
-  }
-
-  .header-nav__list {
-    flex-direction: row;
-    gap: 30px;
-  }
-  
-  .header-nav__link {
-    font-size: 1rem;
-    color: var(--text-on-light-secondary);
-    font-weight: 700;
-    padding-bottom: 2px;
-    position: relative;
-    transition: color 0.4s ease;
-  }
-  
-  .header-nav__link::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 3px;
-    background-color: var(--brand-blue);
-    transition: width 0.4s ease;
-  }
-  
-  .header-nav__link:hover {
-    color: var(--brand-blue);
-  }
-  
-  .header-nav__link:hover::after {
-    width: 100%;
-  }
 }
 
 /* ================================== */
@@ -299,7 +242,6 @@ h1, h2, h3 {
   clip-path: polygon(0% 100%, 100% 100%, 100% 60%, 50% 0%, 0% 60%);
   translate: 0 14%;
 }
-
 .btn {
   padding: 14px 32px;
   border-radius: 8px;
@@ -320,7 +262,6 @@ h1, h2, h3 {
   background: #0041a3;
   transform: translateY(-3px);
 }
-
 .btn-yellow-primary {
   background: var(--brand-yellow);
   color: var(--text-on-light);
@@ -329,7 +270,6 @@ h1, h2, h3 {
   background: #ffd44c;
   transform: translateY(-3px);
 }
-
 .hero-section {
   background-image: url(/../assets/images/fundo.webp);
   background-size: cover;
@@ -347,9 +287,7 @@ h1, h2, h3 {
   z-index: 2;
   min-height: calc(55vh - var(--header-height));
 }
-.hero-text {
-  flex: 1;
-}
+.hero-text { flex: 1; }
 .hero-text .tag {
   background: rgba(0, 82, 204, 0.1);
   color: var(--brand-blue);
@@ -379,14 +317,12 @@ h1, h2, h3 {
   border-radius: 69% 31% 73% 27% / 39% 65% 35% 61%;
   background-color: var(--brand-yellow);
 }
-
 .hero-image img {
   transform: translate(-20%, 5%);
   max-width: 200%;
   max-height: 900px;
   filter: drop-shadow(var(--shadow-light));
 }
-
 .original-badge {
   position: absolute;
   top: 20px;
@@ -410,7 +346,6 @@ h1, h2, h3 {
   line-height: 1;
   font-weight: 800;
 }
-
 .section-title {
   text-align: center;
   margin-bottom: 40px;
@@ -432,12 +367,10 @@ h1, h2, h3 {
 .dark-section .section-title p {
   color: rgba(255, 255, 255, 0.7);
 }
-
 #servicos {
   background-image: url(/../assets/images/fundo-branco.webp);
   padding: 100px 0;
 }
-
 .services-carousel {
   width: 100%;
   padding: 10px 0 40px 0;
@@ -498,14 +431,12 @@ h1, h2, h3 {
 .services-carousel .swiper-pagination-bullet {
   background-color: var(--text-on-light-secondary);
   opacity: 0.7;
-  display: none;
 }
 .services-carousel .swiper-pagination-bullet-active {
   background-color: var(--brand-yellow);
   transform: scale(1.2);
   opacity: 1;
 }
-
 .locations-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -541,13 +472,11 @@ h1, h2, h3 {
   font-size: 1rem;
   line-height: 1.7;
 }
-
 .dark-section {
   background-image: url(/../assets/images/fundo.webp);
   background-size: cover;
   background-position: center;
 }
-
 .gallery-parent {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -585,13 +514,11 @@ h1, h2, h3 {
 .gallery-item:hover .project-overlay {
   transform: translateY(0);
 }
-
 .item1 { grid-area: 1 / 1 / 4 / 3; }
 .item2 { grid-area: 1 / 3 / 4 / 4; }
 .item3 { grid-area: 3 / 4 / 6 / 6; }
 .item4 { grid-area: 1 / 4 / 3 / 6; }
 .item5 { grid-area: 4 / 1 / 6 / 4; }
-
 #diferenciais {
   background: var(--brand-yellow);
   padding: 100px 0;
@@ -619,7 +546,6 @@ h1, h2, h3 {
   color: var(--text-on-light);
   margin-bottom: 10px;
 }
-
 .light-bg-section {
   background: var(--light-bg-primary);
 }
@@ -667,14 +593,12 @@ h1, h2, h3 {
   font-size: 0.9rem;
   color: var(--text-on-light-secondary);
 }
-
 #faq {
   background-image: url(/../assets/images/fundo.webp);
 }
 .faq-accordion-section .section-title h2 { color: var(--border-light); }
 .faq-accordion-section .section-title i { color: var(--border-light); }
 .faq-accordion-section .section-title p { color: var(--text-on-dark-secondary); }
-
 .faq-accordion {
   max-width: 800px;
   margin: 0 auto;
@@ -724,9 +648,7 @@ h1, h2, h3 {
 .faq-item.active .faq-answer-wrapper {
   grid-template-rows: 1fr;
 }
-.faq-answer-content {
-  overflow: hidden;
-}
+.faq-answer-content { overflow: hidden; }
 .faq-answer-content p {
   padding: 0 20px 20px 20px;
   margin: 0;
@@ -734,7 +656,6 @@ h1, h2, h3 {
   color: var(--text-on-light-secondary);
   line-height: 1.7;
 }
-
 #contato {
   background-image: url(/../assets/images/fundo-amarelo.webp);
 }
@@ -748,10 +669,7 @@ h1, h2, h3 {
   font-size: 1rem;
   font-weight: 600;
 }
-.contact-location-info i {
-  font-size: 1.2rem;
-}
-
+.contact-location-info i { font-size: 1.2rem; }
 .whatsapp-float {
   position: fixed;
   bottom: 40px;
@@ -783,7 +701,6 @@ h1, h2, h3 {
   font-size: 18px;
   white-space: nowrap;
 }
-
 .contact-section-final-cta {
   background-color: var(--brand-yellow);
   text-align: center;
@@ -829,7 +746,6 @@ h1, h2, h3 {
   transform: translateY(-4px);
 }
 .btn-contact i { font-size: 1.5rem; }
-
 .map-container {
   margin: 50px auto 0;
   border-radius: 12px;
@@ -847,13 +763,74 @@ h1, h2, h3 {
   height: 100%;
   border: 0;
 }
-
 .footer {
   background: var(--dark-prime);
   color: var(--text-on-light-secondary);
   text-align: center;
   padding: 30px 0;
   border-top: 4px solid var(--brand-blue);
+}
+
+/* --- Estilos para Desktop (a partir de 992px) --- */
+@media (min-width: 992px) {
+  :root {
+    /* --- CORREÇÃO: Aumenta a altura do header no desktop --- */
+    --header-height: 80px;
+  }
+
+  .header-nav__logo img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .header-nav__toggle {
+    display: none; /* Esconde o botão hamburguer */
+  }
+
+  .header-nav__menu {
+    position: static;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    width: auto;
+    height: auto;
+    background: none;
+    backdrop-filter: none;
+    padding: 0;
+  }
+
+  .header-nav__list {
+    flex-direction: row;
+    gap: 30px;
+  }
+  
+  .header-nav__link {
+    font-size: 1rem;
+    color: var(--text-on-light-secondary);
+    font-weight: 700;
+    padding-bottom: 5px;
+    position: relative;
+    transition: color 0.4s ease;
+  }
+  
+  .header-nav__link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: var(--brand-blue);
+    transition: width 0.4s ease;
+  }
+  
+  .header-nav__link:hover {
+    color: var(--brand-blue);
+  }
+  
+  .header-nav__link:hover::after {
+    width: 100%;
+  }
 }
 
 /* --- RESPONSIVIDADE (MEDIA QUERIES) --- */
