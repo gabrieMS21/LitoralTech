@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // --- INICIALIZAÇÃO DO AOS (ANIMAÇÕES DE SCROLL) ---
     if (typeof AOS !== 'undefined') {
         AOS.init({
-            once: true, // A animação acontece apenas uma vez
+            once: true, 
             duration: 800,
             delay: 100,
         });

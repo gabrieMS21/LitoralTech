@@ -90,9 +90,7 @@ h1, h2, h3 {
   text-transform: uppercase;
 }
 
-/* ============================================= */
-/* --- CABEÇALHO E NAVEGAÇÃO RESPONSIVA --- */
-/* ============================================= */
+/* Cabeçalho Header */
 #main-header {
   background: var(--light-bg-transparent);
   backdrop-filter: blur(8px);
@@ -164,7 +162,6 @@ h1, h2, h3 {
 
 /* --- Menu (Container dos Links) --- */
 .header-nav__menu {
-  /* Mobile: Ocupa a tela toda, fica escondido fora da tela */
   position: fixed;
   top: 0;
   right: 0;
@@ -501,6 +498,7 @@ h1, h2, h3 {
 .services-carousel .swiper-pagination-bullet {
   background-color: var(--text-on-light-secondary);
   opacity: 0.7;
+  display: none;
 }
 .services-carousel .swiper-pagination-bullet-active {
   background-color: var(--brand-yellow);
